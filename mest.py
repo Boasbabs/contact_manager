@@ -17,12 +17,25 @@ class Eit(Person):
     def recite_fun_fact(self):
         return self.fun_fact
 
+class MoneyException(Exception):
+    def __init__(self,arg):
+        self.arg = arg
+
 
 class Fellow(Person):
+    # fixed number of Fellow to be created
+    number_of_fellow = 1
 
     def __init__(self, name, nationality, happiness_level=50):
         super().__init__(name, nationality)
         self.happiness_level = happiness_level
+
+        try:
+            Fellow.number_of_fellow += 1
+            if Fellow.number_of_fellow > 5:
+                raise MoneyException(name)
+        except Exception as error:
+            print("We can't hire {}!".format(error))
 
     # eat method increases happiness level
     def eat(self):
@@ -42,5 +55,14 @@ class School:
 
 
 andrew = Fellow("Andrew", "Danish", 50)
+francis = Fellow("Francis", "Ghanaian", 60)
+kerry = Fellow("Kerry", "USA", 70 )
+miishe = Fellow("Miishe", "USA", 80)
+pascal = Fellow("Pascal", "Congo", 80)
+todd = Fellow("Todd", "USA", 60)
+edem = Fellow("Edem", "Ghana", 70)
 
-simeon = Eit("Simeon", "Nigeria", "In love with Python, not a geek yet")
+
+# print(andrew.nationality)
+# simeon = Person("Simeon", "Nigeria")
+# print(simeon.name)
